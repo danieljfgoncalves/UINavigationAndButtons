@@ -21,6 +21,8 @@
     if (self) {
         self.title = @"Favorites";
         self.tabBarItem.image = [UIImage imageNamed:@"tab_icon_favorites"];
+        self.view.backgroundColor = [UIColor redColor];
+        self.title = @"FavView";
     }
     return self;
 }
