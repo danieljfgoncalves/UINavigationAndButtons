@@ -7,7 +7,10 @@
 //
 
 #import "AppDelegate.h"
-
+#import "ViewController.h"
+#import "FeedViewController.h"
+#import "FavoritesViewController.h"
+#import "ProfileViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -15,10 +18,43 @@
 @implementation AppDelegate
 
 
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    CGRect viewRect = [[UIScreen mainScreen] bounds]; self.window = [[UIWindow alloc] initWithFrame:viewRect];
+    UIViewController *colorTouchVC = [[UIViewController alloc] init];
+    UIView *colorView = [[UIView alloc] initWithFrame:viewRect];
+    colorView.backgroundColor = [UIColor yellowColor];
+    colorTouchVC.view = colorView;
+    self.window.rootViewController = colorTouchVC;
+    [self.window makeKeyAndVisible];
+    NSLog(@"Screen is %f tall and %f wide", viewRect.size.height, viewRect.size.width);
+    
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+    UINavigationController *profileNavController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+    
+    FeedViewController *feedViewController = [[FeedViewController alloc] init];
+    UINavigationController *feedNavController = [[UINavigationController alloc] initWithRootViewController:feedViewController];
+    
+    FavoritesViewController *favoritesViewController = [[FavoritesViewController alloc] init];
+    UINavigationController *favoritesNavController = [[UINavigationController alloc] initWithRootViewController:favoritesViewController];
+    
+    UITabBarController *tabController = [[UITabBarController alloc] init];
+    tabController.viewControllers = @[profileNavController];
+    tabController.viewControllers = @[feedNavController];
+    tabController.viewControllers = @[favoritesNavController];
+    
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = tabController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
